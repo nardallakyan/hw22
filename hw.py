@@ -109,86 +109,130 @@
 
 
 #hw 29
-class MyShows:
-    def __init__(self, name, platform, year, episode=1, rating=None, actors=None):
+# class MyShows:
+#     def __init__(self, name, platform, year, episode=1, rating=None, actors=None):
+#
+#         if not isinstance(name, str): raise ValueError("seriali anunyny petq e lini text")
+#         if not isinstance(platform, str): raise ValueError("hartaky petq e lini text")
+#         if not isinstance(year, int): raise ValueError("taretivy amboxj tiv")
+#         if not isinstance(episode, int) or episode < 1: raise ValueError("seriali hmary amboxj tiv")
+#         if rating is not None and (not isinstance(rating, int) or not (1 <= rating <= 10)):
+#             raise ValueError("gnahatakany  1 - 10 mijakyqyum")
+#         if not isinstance(actors, list): raise ValueError("derasanery linen list")
+#
+#
+#         self.__name = name
+#         self.__platform = platform
+#         self.__year = year
+#         self.__episode = episode
+#         self.__rating = rating
+#         self.__actors = actors
+#
+#
+#     def get_name(self): return self.__name
+#     def get_platform(self): return self.__platform
+#     def get_year(self): return self.__year
+#     def get_episode(self): return self.__episode
+#     def get_rating(self): return self.__rating
+#     def get_actors(self): return self.__actors
 
-        if not isinstance(name, str): raise ValueError("seriali anunyny petq e lini text")
-        if not isinstance(platform, str): raise ValueError("hartaky petq e lini text")
-        if not isinstance(year, int): raise ValueError("taretivy amboxj tiv")
-        if not isinstance(episode, int) or episode < 1: raise ValueError("seriali hmary amboxj tiv")
-        if rating is not None and (not isinstance(rating, int) or not (1 <= rating <= 10)):
-            raise ValueError("gnahatakany  1 - 10 mijakyqyum")
-        if not isinstance(actors, list): raise ValueError("derasanery linen list")
+#
+#     def set_episode(self, ep):
+#         if isinstance(ep, int) and ep > 0:
+#             self.__episode = ep
+#         else:
+#             raise ValueError("lini drakan amboxj tiv")
+#
+#     def set_rating(self, r):
+#         if isinstance(r, int) and 1 <= r <= 10:
+#             self.__rating = r
+#         else:
+#             raise ValueError("gnahatakany 1-10 mijakyqum")
+#
+#
+#     def del_rating(self):
+#         self.__rating = None
+#
+#
+#     def add_actor(self, actor):
+#         if isinstance(actor, str):
+#             self.__actors.append(actor)
+#         else:
+#             raise ValueError("derasni anuny")
+#
+#     def remove_actor(self, actor):
+#         if actor in self.__actors:
+#             self.__actors.remove(actor)
+#
+#
+#     def info(self):
+#         return {
+#             "Name": self.__name,
+#             "Platform": self.__platform,
+#             "Year": self.__year,
+#             "Episode": self.__episode,
+#             "Rating": self.__rating,
+#             "Actors": self.__actors
+#         }
+#
+# sopranos = MyShows(
+#     name="The Sopranos",
+#     platform="HBO",
+#     year=1999,
+#     episode=1,
+#     rating=None,
+#     actors=["James Gandolfini", "Lorraine Bracco", "Edie Falco", "Michael Imperioli"]
+# )
+#
+# print(sopranos.info())
+#
+#
+# sopranos.set_episode(5)
+# sopranos.set_rating(10)
+# sopranos.remove_actor("Lorraine Bracco")
+# print(sopranos.info())
 
 
-        self.__name = name
-        self.__platform = platform
-        self.__year = year
-        self.__episode = episode
-        self.__rating = rating
-        self.__actors = actors
+class Restaurant:
+    def __init__(self, name, tables_count):
+        self.name = name
+        self.tables_count = tables_count
+        self.reservations = {}
 
+    def make_reservation(self, name, table_number, date):
+        if date not in self.reservations:
+            self.reservations[date] = 0
 
-    def get_name(self): return self.__name
-    def get_platform(self): return self.__platform
-    def get_year(self): return self.__year
-    def get_episode(self): return self.__episode
-    def get_rating(self): return self.__rating
-    def get_actors(self): return self.__actors
-
-
-    def set_episode(self, ep):
-        if isinstance(ep, int) and ep > 0:
-            self.__episode = ep
+        if self.reservations[date] + table_number > self.tables_count:
+            print("No seats available.")
         else:
-            raise ValueError("lini drakan amboxj tiv")
+            self.reservations[date] += table_number
+            print(f"Reservation made for {name} at {date}.")
 
-    def set_rating(self, r):
-        if isinstance(r, int) and 1 <= r <= 10:
-            self.__rating = r
-        else:
-            raise ValueError("gnahatakany 1-10 mijakyqum")
+    def order_food(self, *items):
+            print(f"Order with {', '.join(items)} placed!")
 
-
-    def del_rating(self):
-        self.__rating = None
+    def order_food(self, *items):
+            print(f"Order with {', '.join(items)} placed!")
 
 
-    def add_actor(self, actor):
-        if isinstance(actor, str):
-            self.__actors.append(actor)
-        else:
-            raise ValueError("derasni anuny")
 
-    def remove_actor(self, actor):
-        if actor in self.__actors:
-            self.__actors.remove(actor)
+class FastFoodRestaurant(Restaurant):
+    def __init__(self, name):
+        super().__init__(name, 0)
+
+    def make_reservation(self, name, table_number, date):
+        print("We don't take reservations.")
 
 
-    def info(self):
-        return {
-            "Name": self.__name,
-            "Platform": self.__platform,
-            "Year": self.__year,
-            "Episode": self.__episode,
-            "Rating": self.__rating,
-            "Actors": self.__actors
-        }
-
-sopranos = MyShows(
-    name="The Sopranos",
-    platform="HBO",
-    year=1999,
-    episode=1,
-    rating=None,
-    actors=["James Gandolfini", "Lorraine Bracco", "Edie Falco", "Michael Imperioli"]
-)
-
-print(sopranos.info())
 
 
-sopranos.set_episode(5)       
-sopranos.set_rating(10)
-sopranos.add_actor("Tony Sirico")
-sopranos.remove_actor("Lorraine Bracco")
-print(sopranos.info())
+
+
+
+
+
+
+
+
+
