@@ -193,36 +193,86 @@
 # print(sopranos.info())
 
 
-class Restaurant:
-    def __init__(self, name, tables_count):
-        self.name = name
-        self.tables_count = tables_count
-        self.reservations = {}
+# class Restaurant:
+#     def __init__(self, name, tables_count):
+#         self.name = name
+#         self.tables_count = tables_count
+#         self.reservations = {}
+#
+#     def make_reservation(self, name, table_number, date):
+#         if date not in self.reservations:
+#             self.reservations[date] = 0
+#
+#         if self.reservations[date] + table_number > self.tables_count:
+#             print("No seats available.")
+#         else:
+#             self.reservations[date] += table_number
+#             print(f"Reservation made for {name} at {date}.")
+#
+#     def order_food(self, *items):
+#             print(f"Order with {', '.join(items)} placed!")
+#
+#     def order_food(self, *items):
+#             print(f"Order with {', '.join(items)} placed!")
+#
+#
+#
+# class FastFoodRestaurant(Restaurant):
+#     def __init__(self, name):
+#         super().__init__(name, 0)
+#
+#     def make_reservation(self, name, table_number, date):
+#         print("We don't take reservations.")
 
-    def make_reservation(self, name, table_number, date):
-        if date not in self.reservations:
-            self.reservations[date] = 0
+class MyList:
+    def __init__(self, iterable=None):
+        self._data = list(iterable) if iterable is not None else []
 
-        if self.reservations[date] + table_number > self.tables_count:
-            print("No seats available.")
-        else:
-            self.reservations[date] += table_number
-            print(f"Reservation made for {name} at {date}.")
+    def append(self, item):
+        self._data.append(item)
 
-    def order_food(self, *items):
-            print(f"Order with {', '.join(items)} placed!")
+    def extend(self, iterable):
+        self._data.extend(iterable)
 
-    def order_food(self, *items):
-            print(f"Order with {', '.join(items)} placed!")
+    def insert(self, i, item):
+        self._data.insert(i, item)
+
+    def __len__(self):
+        return len(self._data)
+    def __getitem__(self, i):
+        return self._data[i]
+    def __setitem__(self, i, item):
+        self._data[i] = item
+    def __delitem__(self, i):
+        del self._data[i]
+    def __iter__(self):
+        return iter(self._data)
+    def __contains__(self, item):
+        return item in self._data
+    def __str__(self):
+        return str(self._data)
+    def __repr__(self): return f"MyList({self._data})"
 
 
+    def unicue(self):
+        return MyList(set(self._data))
+    def first(self):
+        return self._data[0]
+    def last(self):
+        return self._data[-1] if self._data else None
+    def sum(self):
+        return sum(self._data)
+    def average(self):
+        return sum(self._data) / len(self._data) if self._data else 0
 
-class FastFoodRestaurant(Restaurant):
-    def __init__(self, name):
-        super().__init__(name, 0)
-
-    def make_reservation(self, name, table_number, date):
-        print("We don't take reservations.")
+ml = MyList([7, 3, 8, 2 ,4])
+del ml[0]
+ml.append(5)
+print(ml.first())
+print(ml.last())
+print(ml.sum())
+print(ml.average())
+print(ml)
 
 
 
