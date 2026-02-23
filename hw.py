@@ -224,58 +224,109 @@
 #     def make_reservation(self, name, table_number, date):
 #         print("We don't take reservations.")
 
-class MyList:
-    def __init__(self, iterable=None):
-        self._data = list(iterable) if iterable is not None else []
+# class MyList:
+#     def __init__(self, iterable=None):
+#         self._data = list(iterable) if iterable is not None else []
+#
+#     def append(self, item):
+#         self._data.append(item)
+#
+#     def extend(self, iterable):
+#         self._data.extend(iterable)
+#
+#     def insert(self, i, item):
+#         self._data.insert(i, item)
+#
+#     def __len__(self):
+#         return len(self._data)
+#     def __getitem__(self, i):
+#         return self._data[i]
+#     def __setitem__(self, i, item):
+#         self._data[i] = item
+#     def __delitem__(self, i):
+#         del self._data[i]
+#     def __iter__(self):
+#         return iter(self._data)
+#     def __contains__(self, item):
+#         return item in self._data
+#     def __str__(self):
+#         return str(self._data)
+#     def __repr__(self): return f"MyList({self._data})"
+#
+#
+#     def unicue(self):
+#         return MyList(set(self._data))
+#     def first(self):
+#         return self._data[0]
+#     def last(self):
+#         return self._data[-1] if self._data else None
+#     def sum(self):
+#         return sum(self._data)
+#     def average(self):
+#         return sum(self._data) / len(self._data) if self._data else 0
+#
+# ml = MyList([7, 3, 8, 2 ,4])
+# del ml[0]
+# ml.append(5)
+# print(ml.first())
+# print(ml.last())
+# print(ml.sum())
+# print(ml.average())
+# print(ml)
+#
+#hw 32
+import math
+class Computation:
+    def __init__(self):
+        pass
 
-    def append(self, item):
-        self._data.append(item)
+    def factorial(self,n:int)->int:
+        return math.factorial(n)
 
-    def extend(self, iterable):
-        self._data.extend(iterable)
+    def sum(self, n:int)->int:
+        result = 0
+        for i in range(1,n+1):
+            result += i
+        return result
+    def is_prime(self, n:int)->bool:
+        if n < 2:
+            return False
+        for i in range(2,n+1):
+            if n % i == 0:
+                return False
+            return True
 
-    def insert(self, i, item):
-        self._data.insert(i, item)
+    def all_is_prime(self, n: int):
+        primes = []
+        for i in range(2, n + 1):
+            if self.is_prime(i):
+                primes.append(i)
+        return primes
 
-    def __len__(self):
-        return len(self._data)
-    def __getitem__(self, i):
-        return self._data[i]
-    def __setitem__(self, i, item):
-        self._data[i] = item
-    def __delitem__(self, i):
-        del self._data[i]
-    def __iter__(self):
-        return iter(self._data)
-    def __contains__(self, item):
-        return item in self._data
-    def __str__(self):
-        return str(self._data)
-    def __repr__(self): return f"MyList({self._data})"
+    def table_mult(self,n:int):
+        table = []
+        for i in range(1,11):
+            table.append(f"{n} x {i} = {n*i}")
+        return table
 
-
-    def unicue(self):
-        return MyList(set(self._data))
-    def first(self):
-        return self._data[0]
-    def last(self):
-        return self._data[-1] if self._data else None
-    def sum(self):
-        return sum(self._data)
-    def average(self):
-        return sum(self._data) / len(self._data) if self._data else 0
-
-ml = MyList([7, 3, 8, 2 ,4])
-del ml[0]
-ml.append(5)
-print(ml.first())
-print(ml.last())
-print(ml.sum())
-print(ml.average())
-print(ml)
+    def all_tables_mult(self, n:int):
+        tables = {}
+        for i in range(1,n+1):
+            tables[i] = self.table_mult(i)
+        return tables
 
 
 
+
+
+comp = Computation()
+
+print(comp.factorial(5))       
+print(comp.sum(10))
+print(comp.is_prime(17))
+print(comp.all_is_prime(20))
+print(comp.table_mult(7))
+print(comp.all_tables_mult(3))
 
 
 
