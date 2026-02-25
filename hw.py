@@ -44,6 +44,7 @@
 #
 #     def circumradius(self):
 #         return (self.a * self.b * self.c) / (4 * self.area())
+from itertools import combinations
 
 
 # 1 oop
@@ -275,65 +276,170 @@
 # print(ml)
 #
 #hw 32
-import math
-class Computation:
+# import math
+# class Computation:
+#     def __init__(self):
+#         pass
+#
+#     def factorial(self,n:int)->int:
+#         return math.factorial(n)
+#
+#     def sum(self, n:int)->int:
+#         result = 0
+#         for i in range(1,n+1):
+#             result += i
+#         return result
+#     def is_prime(self, n:int)->bool:
+#         if n < 2:
+#             return False
+#         for i in range(2,n+1):
+#             if n % i == 0:
+#                 return False
+#             return True
+#
+#     def all_is_prime(self, n: int):
+#         primes = []
+#         for i in range(2, n + 1):
+#             if self.is_prime(i):
+#                 primes.append(i)
+#         return primes
+#
+#     def table_mult(self,n:int):
+#         table = []
+#         for i in range(1,11):
+#             table.append(f"{n} x {i} = {n*i}")
+#         return table
+#
+#     def all_tables_mult(self, n:int):
+#         tables = {}
+#         for i in range(1,n+1):
+#             tables[i] = self.table_mult(i)
+#         return tables
+#
+#
+#
+#
+#
+# comp = Computation()
+#
+# print(comp.factorial(5))
+# print(comp.sum(10))
+# print(comp.is_prime(17))
+# print(comp.all_is_prime(20))
+# print(comp.table_mult(7))
+# print(comp.all_tables_mult(3))
+
+#6 OOP
+# - Создайте класс Читать, который получит в конструкторе ссылку на файл и тип файла.
+# - Класс должен уметь читать текстовый файл, json, pickle, изображение (через класс pillow).
+# - Для текстового файла напишите методы для
+#   -- прочтения текста;
+#   -- печатания первых k строк;
+#   -- печатания последних k строк;
+#   -- получения текста в виде текста или итератора.
+# - Для json и pickle файлов напишите методы для
+#   -- получения содержимого.
+# - Для изображения напишите методы для
+#   -- вывода изображения;
+#   -- изменения размера изображения;
+#   -- поворачивания изображения на определённый угол, который нужно дать в виде параметра;
+#   -- зеркального отражении по горизонтали, по вертикали, по диагонали;
+#   -- конвертации изображении в градацию серого;
+#   -- сохранения изменённого изображения с новым именем, который нужно дать в виде параметра.
+
+
+# 8. Магия
+#
+# Для данной игры необходимо реализовать механику магии, где при соединении двух
+# элементов получается новый.
+#
+# - У нас есть четыре базовых элемента: «Вода», «Воздух», «Огонь», «Земля».
+# - Из них как раз и получаются новые: «Шторм», «Пар», «Грязь», «Молния», «Пыль», «Лава».
+#
+# - Вот таблица преобразований:
+#   -- Вода + Воздух = Шторм
+#   -- Вода + Огонь = Пар
+#   -- Вода + Земля = Грязь
+#   -- Воздух + Огонь = Молния
+#   -- Воздух + Земля = Пыль
+#   -- Огонь + Земля = Лава
+#
+# - Напишите программу, которая реализует все эти элементы.
+#
+# - Каждый элемент необходимо организовать как отдельный класс. Если результат не определён, то возвращается None.
+#
+# - Примечание: сложение объектов можно реализовывать через магический метод __add__.
+#
+# - Можете изначально создать один класс «Элемент», в котором будете реализовать всю логику магии,
+#   а остальные классы просто будут унаследовать от этого.
+#
+# - Дополнительно: придумайте свой элемент (или элементы), а также реализуйте его взаимодействие с остальными элементами.
+
+class Element:
+    def __init__(self, name: str):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+    def __add__(self, other):
+        combinations = {
+            ("Вода", "Воздух"): "Шторм",
+            ("Воздух", "Вода"): "Шторм",
+            ("Вода", "Огонь"): "Пар",
+            ("Огонь", "Вода"): "Пар",
+            ("Вода", "Земля"): "Грязь",
+            ("Земля", "Вода"): "Грязь",
+            ("Воздух", "Огонь"): "Молния",
+            ("Огонь", "Воздух"): "Молния",
+            ("Воздух", "Земля"): "Пыль",
+            ("Земля", "Воздух"): "Пыль",
+            ("Огонь", "Земля"): "Лава",
+            ("Земля", "Огонь"): "Лава",
+            ("Вода", "Воздух"): "Шторм",
+            ("Вода", "Холод"): "Лёд",
+            ("Холод", "Вода"): "Лёд",
+        }
+        result = combinations.get((self.name, other.name))
+        if result:
+            return Element(result)
+        return None
+
+
+
+class Water(Element):
     def __init__(self):
-        pass
+        super().__init__("Вода")
 
-    def factorial(self,n:int)->int:
-        return math.factorial(n)
+class Air(Element):
+    def __init__(self):
+        super().__init__("Воздух")
 
-    def sum(self, n:int)->int:
-        result = 0
-        for i in range(1,n+1):
-            result += i
-        return result
-    def is_prime(self, n:int)->bool:
-        if n < 2:
-            return False
-        for i in range(2,n+1):
-            if n % i == 0:
-                return False
-            return True
+class Fire(Element):
+    def __init__(self):
+        super().__init__("Огонь")
 
-    def all_is_prime(self, n: int):
-        primes = []
-        for i in range(2, n + 1):
-            if self.is_prime(i):
-                primes.append(i)
-        return primes
+class Earth(Element):
+    def __init__(self):
+        super().__init__("Земля")
 
-    def table_mult(self,n:int):
-        table = []
-        for i in range(1,11):
-            table.append(f"{n} x {i} = {n*i}")
-        return table
-
-    def all_tables_mult(self, n:int):
-        tables = {}
-        for i in range(1,n+1):
-            tables[i] = self.table_mult(i)
-        return tables
+class Cold(Element):
+    def __init__(self):
+        super().__init__("Холод")
 
 
+w = Water()
+a = Air()
+f = Fire()
+e = Earth()
+c = Cold()
 
 
-
-comp = Computation()
-
-print(comp.factorial(5))       
-print(comp.sum(10))
-print(comp.is_prime(17))
-print(comp.all_is_prime(20))
-print(comp.table_mult(7))
-print(comp.all_tables_mult(3))
-
-
-
-
-
-
-
-
-
+print(w + a)
+print(w + f)
+print(w + e)
+print(a + f)
+print(a + e)
+print(f + e)
+print(w + c)  
 
